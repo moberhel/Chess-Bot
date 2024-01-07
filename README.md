@@ -15,17 +15,17 @@ Pygame Installation
 The minimax algorithm is a recursive algorithm to find the best move possible that is used for chess bots. It navigates through a tree, assigning scores to each possible move while maximizesing the score for the current player (MAX) and minimizing the score for the opponent (MIN) at alternating depths. It backtracks through the tree, selecting moves that lead to the best possible outcome. Alpha-beta pruning has been implemented to optimize the algorithm by reducing unnecessary evaluations that cannot affect the final decision. The best move is the move with the highest score at the root node.
 
 ```python
-def Minimax(self, moves, d, alpha, beta, turn):
+    def Minimax(self, moves, d, alpha, beta, turn):
         global new_coordinates, piece_name, original_coordinates
         if d == 0:
             return turn * self.scoreBoard() 
         maxScore = -checkmate 
         for move in moves: 
+            self.ifCastle()
             self.makeMove(move[2], move[3], move[0], move[1], move[4]) #move[0]/move[1] is old x and y coordinates
             self.checkCastle(move[4], move[2], move[3]) #move[2]/move[3] is the new x and y coordinates
             if self.ifCheck():
                 self.Undo(move[0], move[1], move[4], move[5], move[2], move[3]) #move[4] is the moved piece and move[5] is captured piece
-                self.undoEnpassant(move[4], move[6], move[0], move[1]) #move[6] is to store a captured pawn in en passant
                 continue
             self.white = not self.white
             nextmoves = self.allMoves() 
@@ -115,9 +115,9 @@ The value of a piece is influenced by its position on the board. I've assigned m
                            [2, 2, 1, 1, 1, 1, 2, 2],
                            [2, 2, 2, 1, 1, 2, 2, 2],
                            [3, 3, 2, 2, 2, 2, 3, 3],
-                           [4, 7, 4, 3, 3, 4, 7, 4],
+                           [3, 5, 3, 3, 3, 5, 3, 3],
                            ]
-        blackkingScores = [[4, 7, 4, 3, 3, 4, 7, 4], 
+        blackkingScores = [[3, 5, 3, 3, 3, 5, 3, 3], 
                            [3, 3, 2, 2, 2, 2, 3, 3],
                            [2, 2, 2, 1, 1, 2, 2, 2],
                            [2, 2, 1, 1, 1, 1, 2, 2],
